@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mamas App</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_entry">EntryActivity</string>
+    <string name="title_activity_text">TextActivity</string>
+    <string name="searchTitle">Suchen...</string>
+    <string name="title_activity_search">Ergebnisse</string>
+    <string name="verlauf_loeschen">Suchverlauf löschen?</string>
+    <string name="Ja">Ja</string>
+    <string name="Nein">Nein</string>
+
+</resources>
