@@ -1,6 +1,7 @@
 package de.lindemann.niklas.mamasapp;
 
 
+import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,33 +9,49 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener{
 
-
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private String[] mMenuItems = new String[]{"Hauptmenü","Einstellungen"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_color)));
 
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_layout, mMenuItems));
+
+        Fragment menuFragment = new MenuFragment();
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,EmergencyActivity.class);
-                startActivity(intent);
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position){
+                    case 1:
+                        
+                        break;
+                }
             }
         });
+
+        getFragmentManager().beginTransaction().replace(R.id.content_frame,menuFragment ).commit();
     }
 
 
