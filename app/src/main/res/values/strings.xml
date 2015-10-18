@@ -10,5 +10,15 @@
     <string name="verlauf_loeschen">Suchverlauf löschen?</string>
     <string name="Ja">Ja</string>
     <string name="Nein">Nein</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="Gong">Gong</string>
+    <string name="GongSummary">Soll nach dem Drücken auf den Notfallknopf nach 20 Sekunden zur Beruhigung ein Gong ertönen?</string>
+    <string name="drawer_open">Öffnen</string>
+    <string name="drawer_close">Schliessen</string>
+
+
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

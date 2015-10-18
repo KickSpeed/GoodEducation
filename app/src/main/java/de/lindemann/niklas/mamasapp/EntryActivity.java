@@ -6,6 +6,7 @@ import android.os.DropBoxManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,16 +16,12 @@ public class EntryActivity extends AppCompatActivity implements EntryActivityFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
+        
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getIntent().getIntExtra("Color", 0)));
 
 
-
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-            //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(R.color.puzzle_1)));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getIntent().getIntExtra("Color",0)));
 
     }
 
