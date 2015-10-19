@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         handleIntent(getIntent());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar.setTitle("Suchergebnisse");
 
         mDialogListener = new DialogInterface.OnClickListener() {
             @Override
@@ -102,9 +107,7 @@ public class SearchActivity extends AppCompatActivity {
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,MySuggestionProvider.AUTHORITY,MySuggestionProvider.MODE);
             suggestions.saveRecentQuery(query,null);
 
-            DBHelper dbOpenHelper = new DBHelper(this, "Ina.sqlite3");
 
-            SQLiteDatabase db = dbOpenHelper.openDataBase();
             mDataSource = new DataSource(this);
             try {
                 mDataSource.open();

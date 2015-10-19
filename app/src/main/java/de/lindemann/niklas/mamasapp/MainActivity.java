@@ -43,13 +43,12 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-         //       R.layout.drawer_layout, mMenuItems));
+
 
 
 
         final Fragment menuFragment = new MenuFragment();
+
         final Fragment settingsFragment = new SettingsFragment();
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
         NavigationView nv = (NavigationView) findViewById(R.id.nvView);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 

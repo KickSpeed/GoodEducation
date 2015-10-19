@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.ListFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,19 +100,7 @@ public class MenuFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+        Log.d("MENUFRAGMENT", "ONCREATED");
         mDataSource = new DataSource(getActivity());
 
         try {
@@ -123,6 +112,7 @@ public class MenuFragment extends ListFragment {
 
         setListAdapter(new BaseAdapter() {
             Bitmap picture;
+
             @Override
             public int getCount() {
                 return mItemList.size();
@@ -143,8 +133,8 @@ public class MenuFragment extends ListFragment {
                 View listenZeile = convertView;
 
 
-                if(listenZeile==null){
-                    listenZeile = getActivity().getLayoutInflater().inflate(R.layout.list_item_main,parent,false);
+                if (listenZeile == null) {
+                    listenZeile = getActivity().getLayoutInflater().inflate(R.layout.list_item_main, parent, false);
                 }
                 MainMenuItem mainMenuItem = mItemList.get(position);
 
@@ -154,14 +144,22 @@ public class MenuFragment extends ListFragment {
                 textView.setText(mainMenuItem.getValue());
 
 
-                picture = MyResourceManager.getPictureByPosition(getActivity(),position);
-                if(picture != null){
+                picture = MyResourceManager.getPictureByPosition(getActivity(), position);
+                if (picture != null) {
                     imageView.setImageBitmap(picture);
                 }
 
                 return listenZeile;
             }
         });
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_color)));
@@ -185,6 +183,9 @@ public class MenuFragment extends ListFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+
+
     }
 
     @Override
@@ -196,15 +197,26 @@ public class MenuFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        Intent intent;
         if (null != mListener) {
-            MainMenuItem mainMenuItem = (MainMenuItem) l.getItemAtPosition(position);
-            Intent intent = new Intent(getActivity(),EntryActivity.class);
-            //intent.putExtra("Color",getColorByID(mainMenuItem.getId()));
-            intent.putExtra("Color",MyResourceManager.getColorByID(getActivity(), mainMenuItem.getId()));
-            intent.putExtra("ID",mainMenuItem.getId());
-            intent.putExtra("Value", mainMenuItem.getValue());
 
+            MainMenuItem mainMenuItem = (MainMenuItem) l.getItemAtPosition(position);
+            if(mainMenuItem.getId()!=1) {
+                intent = new Intent(getActivity(), EntryActivity.class);
+                //intent.putExtra("Color",getColorByID(mainMenuItem.getId()));
+                intent.putExtra("Color", MyResourceManager.getColorByID(getActivity(), mainMenuItem.getId()));
+                intent.putExtra("ID", mainMenuItem.getId());
+                intent.putExtra("Value", mainMenuItem.getValue());
+            }
+            else{
+                List<MainMenuItem> SubItemList = new ArrayList<MainMenuItem>();
+                SubItemList = mDataSource.getSubItemsByID(Integer.toString(mainMenuItem.getId()));
+                intent = new Intent(getActivity(), TextActivity.class);
+                //intent.putExtra("Color",getColorByID(mainMenuItem.getId()));
+                intent.putExtra("Color", MyResourceManager.getColorByID(getActivity(), mainMenuItem.getId()));
+                intent.putExtra("ID", SubItemList.get(0).getId());
+                intent.putExtra("Value", SubItemList.get(0).getValue());
+            }
             startActivity(intent);
         }
     }

@@ -51,8 +51,19 @@ public class EntryActivityFragment extends ListFragment {
             e.printStackTrace();
         }
         mItemList = mDataSource.getSubItemsByID(Integer.toString(mID));
+
+        if(mItemList.size()==1){
+            MainMenuItem mainMenuItem = mItemList.get(0);
+            Intent intent = new Intent(getActivity(),TextActivity.class);
+            intent.putExtra("Color",getActivity().getIntent().getIntExtra("Color",0));
+            intent.putExtra("ID",mainMenuItem.getId());
+            intent.putExtra("Value",mainMenuItem.getValue());
+            startActivity(intent);
+        }
+
         setListAdapter(new ArrayAdapter<MainMenuItem>(getActivity(),
                 R.layout.list_item_main, R.id.ListViewText, mItemList));
+
 
     }
 

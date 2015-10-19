@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Path to the device folder with databases
     public static String DB_PATH;
-    private static int DB_VERSION = 7;
+    private static int DB_VERSION = 13;
 
     private DBHelper Instance;
 
@@ -123,13 +123,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+           // context.deleteDatabase(DB_NAME);
+        Log.d("DBHELPER",Integer.toString(newVersion) + " " + Integer.toString(oldVersion));
+        if(newVersion>oldVersion) {
             try {
                 copyDataBase();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        db.setVersion(newVersion);
+            db.setVersion(newVersion);
+
+        }
 
     }
 }
