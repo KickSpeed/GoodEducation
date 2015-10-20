@@ -6,10 +6,12 @@
 
             android:id="@+id/nav_main"
             android:title="Hauptmenü"
-            android:checked="true"/>
+            android:checked="true"
+            android:icon="@drawable/menu"/>
         <item
             android:id="@+id/nav_settings"
-            android:title="Einstellungen" />
+            android:title="Einstellungen"
+            android:icon="@drawable/settings"/>
 
     </group>
 
