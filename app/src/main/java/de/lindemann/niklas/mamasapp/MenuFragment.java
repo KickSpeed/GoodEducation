@@ -67,33 +67,7 @@ public class MenuFragment extends ListFragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public MenuFragment() {
-    }
 
-    private Bitmap getPictureByPosition(int ID){
-
-        Bitmap picture = null;
-        switch (ID){
-            case 0:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle1);
-                break;
-            case 1:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle2);
-                break;
-            case 2:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle3);
-                break;
-            case 3:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle4);
-                break;
-            case 4:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle1);
-                break;
-            case 5:
-                picture = BitmapFactory.decodeResource(getResources(), R.drawable.puzzle2);
-                break;
-        }
-
-        return picture;
     }
 
 
@@ -209,7 +183,7 @@ public class MenuFragment extends ListFragment {
                 intent.putExtra("Value", mainMenuItem.getValue());
             }
             else{
-                List<MainMenuItem> SubItemList = new ArrayList<MainMenuItem>();
+                List<EntryMenuItem> SubItemList = new ArrayList<EntryMenuItem>();
                 SubItemList = mDataSource.getSubItemsByID(Integer.toString(mainMenuItem.getId()));
                 intent = new Intent(getActivity(), TextActivity.class);
                 //intent.putExtra("Color",getColorByID(mainMenuItem.getId()));

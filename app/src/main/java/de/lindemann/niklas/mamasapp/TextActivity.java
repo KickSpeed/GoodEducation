@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ScrollView;
@@ -48,7 +49,7 @@ public class TextActivity extends AppCompatActivity {
         }
 
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(mDataSource.getTextByUnterpunktID(mUnterpunktID));
+        textView.setText(Html.fromHtml(mDataSource.getTextByUnterpunktID(mUnterpunktID)));
 
     }
 

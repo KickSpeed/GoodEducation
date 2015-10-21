@@ -17,7 +17,7 @@ public class DataSource {
     private DBHelper mDBHelper;
 
     private String[] mColumnsMain = {"_id","Label"};
-    private String[] mColumnsUnterpunkt = {"_id","Label","Text"};
+    private String[] mColumnsUnterpunkt = {"_id","Label","Text","Ueberschrift","BtnLabel"};
 
 
     public DataSource(Context context){
@@ -51,16 +51,16 @@ public class DataSource {
         return itemList;
     }
 
-    public List<MainMenuItem> getSubItemsByID(String ID){
-        List<MainMenuItem> itemList = new ArrayList<MainMenuItem>();
+    public List<EntryMenuItem> getSubItemsByID(String ID){
+        List<EntryMenuItem> itemList = new ArrayList<EntryMenuItem>();
         Cursor cursor = mDatabase.query("Unterpunkt",
-                mColumnsMain,"HauptpunktID = " + ID,null,null,null,null);
+                mColumnsUnterpunkt,"HauptpunktID = " + ID,null,null,null,null);
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()){
-            MainMenuItem mainMenuItem = populateItem(cursor);
-            itemList.add(mainMenuItem);
+            EntryMenuItem entryMenuItem = populateEntryItem(cursor);
+            itemList.add(entryMenuItem);
             cursor.moveToNext();
 
         }
@@ -114,6 +114,18 @@ public class DataSource {
         int LabelIndex = cursor.getColumnIndex("Label");
 
         MainMenuItem item = new MainMenuItem(cursor.getString(LabelIndex),cursor.getInt(idIndex));
+
+        return item;
+
+    }
+
+    private EntryMenuItem populateEntryItem(Cursor cursor){
+        int idIndex = cursor.getColumnIndex("_id");
+        int LabelIndex = cursor.getColumnIndex("Label");
+        int UeberschriftIndex = cursor.getColumnIndex("Ueberschrift");
+        int BtnLabelIndex = cursor.getColumnIndex("BtnLabel");
+
+        EntryMenuItem item = new EntryMenuItem(cursor.getString(LabelIndex),cursor.getInt(idIndex),cursor.getString(UeberschriftIndex),cursor.getString(BtnLabelIndex));
 
         return item;
 

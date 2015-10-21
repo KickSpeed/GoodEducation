@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Path to the device folder with databases
     public static String DB_PATH;
-    private static int DB_VERSION = 13;
+    private static int DB_VERSION = 22;
 
     private DBHelper Instance;
 
@@ -64,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             String path = DB_PATH + DB_NAME;
             checkDb = SQLiteDatabase.openDatabase(path, null,
-                    SQLiteDatabase.OPEN_READONLY);
+                    SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLException e) {
             Log.e(this.getClass().toString(), "Error while checking db");
         }
@@ -103,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (database == null) {
             createDataBase();
             database = SQLiteDatabase.openDatabase(path, null,
-                    SQLiteDatabase.OPEN_READONLY);
+                    SQLiteDatabase.OPEN_READWRITE);
         }
 
 
@@ -123,9 +123,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-           // context.deleteDatabase(DB_NAME);
+        context.deleteDatabase(DB_NAME);
         Log.d("DBHELPER",Integer.toString(newVersion) + " " + Integer.toString(oldVersion));
         if(newVersion>oldVersion) {
+
             try {
                 copyDataBase();
             } catch (IOException e) {

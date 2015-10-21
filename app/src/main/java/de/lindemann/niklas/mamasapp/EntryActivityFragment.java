@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class EntryActivityFragment extends ListFragment {
     private int mID;
     private String mValue;
     private OnFragmentInteractionListener mListener;
-    List<MainMenuItem> mItemList = new ArrayList<MainMenuItem>();
+    List<EntryMenuItem> mItemList = new ArrayList<EntryMenuItem>();
 
 
     public EntryActivityFragment() {
@@ -53,17 +54,53 @@ public class EntryActivityFragment extends ListFragment {
         mItemList = mDataSource.getSubItemsByID(Integer.toString(mID));
 
         if(mItemList.size()==1){
-            MainMenuItem mainMenuItem = mItemList.get(0);
+            EntryMenuItem entryMenuItem = mItemList.get(0);
             Intent intent = new Intent(getActivity(),TextActivity.class);
             intent.putExtra("Color",getActivity().getIntent().getIntExtra("Color",0));
-            intent.putExtra("ID",mainMenuItem.getId());
-            intent.putExtra("Value",mainMenuItem.getValue());
+            intent.putExtra("ID",entryMenuItem.getId());
+            intent.putExtra("Value",entryMenuItem.getValue());
             startActivity(intent);
         }
 
-        setListAdapter(new ArrayAdapter<MainMenuItem>(getActivity(),
-                R.layout.list_item_main, R.id.ListViewText, mItemList));
+        //setListAdapter(new ArrayAdapter<EntryMenuItem>(getActivity(),
+          //      R.layout.list_item_entry, R.id.ListViewTextEntry, mItemList));
 
+
+        setListAdapter(new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return mItemList.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return mItemList.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View listenZeile = convertView;
+
+                if (listenZeile == null){
+                    listenZeile = getActivity().getLayoutInflater().inflate(R.layout.list_item_entry,parent,false);
+                }
+
+                EntryMenuItem entryMenuItem = mItemList.get(position);
+
+                TextView textViewUeberschrift = (TextView) listenZeile.findViewById(R.id.textViewUeberschrift);
+                TextView textViewEntry = (TextView) listenZeile.findViewById(R.id.TextViewTextEntry);
+
+                textViewUeberschrift.setText(entryMenuItem.getUeberschrift());
+                textViewEntry.setText(entryMenuItem.getValue());
+
+                return listenZeile;
+            }
+        });
 
     }
 
@@ -73,11 +110,11 @@ public class EntryActivityFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         if (mListener != null){
-            MainMenuItem mainMenuItem = (MainMenuItem) l.getItemAtPosition(position);
+            EntryMenuItem entryMenuItem = (EntryMenuItem) l.getItemAtPosition(position);
             Intent intent = new Intent(getActivity(),TextActivity.class);
             intent.putExtra("Color",getActivity().getIntent().getIntExtra("Color",0));
-            intent.putExtra("ID",mainMenuItem.getId());
-            intent.putExtra("Value",mainMenuItem.getValue());
+            intent.putExtra("ID",entryMenuItem.getId());
+            intent.putExtra("Value",entryMenuItem.getUeberschrift());
 
             //intent.putExtra("DBHelper",mDataSource);
             startActivity(intent);
