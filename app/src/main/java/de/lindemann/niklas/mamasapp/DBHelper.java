@@ -15,9 +15,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Path to the device folder with databases
     public static String DB_PATH;
-    private static int DB_VERSION = 22;
+    private static int DB_VERSION = 29;
 
-    private DBHelper Instance;
 
     //Database file name
     public static String DB_NAME;
@@ -25,14 +24,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public final Context context;
 
 
-    public SQLiteDatabase getDb() {
-        return database;
-    }
-
     public DBHelper(Context context, String databaseName) {
         super(context, databaseName, null, DB_VERSION);
         this.context = context;
-       // context.deleteDatabase(DB_NAME);
+
+         // context.deleteDatabase(DB_NAME);
         //Write a full path to the databases of your application
         String packageName = context.getPackageName();
         DB_PATH = String.format("//data//data//%s//databases//", packageName);
@@ -45,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
 
         if (!dbExist) {
-            this.getReadableDatabase();
+            this.getWritableDatabase();
             try {
                 copyDataBase();
             } catch (IOException e) {
@@ -53,6 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 throw new Error("Error copying database!");
             }
         } else {
+
             Log.i(this.getClass().toString(), "Database already exists");
         }
     }
@@ -123,18 +120,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //db.execSQL("DROP TABLE IF EXISTS " + DB_NAME);
         context.deleteDatabase(DB_NAME);
-        Log.d("DBHELPER",Integer.toString(newVersion) + " " + Integer.toString(oldVersion));
-        if(newVersion>oldVersion) {
-
-            try {
-                copyDataBase();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            db.setVersion(newVersion);
-
+        try {
+            copyDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        db.setVersion(newVersion);
     }
 }

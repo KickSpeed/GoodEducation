@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, menuFragment).commit();
                         break;
                     case R.id.nav_settings:
-                        getFragmentManager().beginTransaction().replace(R.id.content_frame, settingsFragment).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.content_frame, settingsFragment).addToBackStack(null).commit();
                         break;
 
                 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ScrollView;
@@ -38,6 +39,7 @@ public class TextActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getIntent().getIntExtra("Color", 0)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewText);
 
         mDataSource = new DataSource(this);
@@ -71,7 +73,15 @@ public class TextActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == android.R.id.home){
+            onBackPressed();
+        }
+
+        Log.d("TEXTACTIVITY",Integer.toString(id));
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

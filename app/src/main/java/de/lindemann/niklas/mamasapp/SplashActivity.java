@@ -17,7 +17,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try{
-                    new DataSource(getBaseContext());
+                    DataSource ds = new DataSource(SplashActivity.this);
+                    ds.open();
+                    ds.close();
                 } catch (Exception e){
                     e.printStackTrace();
                 }

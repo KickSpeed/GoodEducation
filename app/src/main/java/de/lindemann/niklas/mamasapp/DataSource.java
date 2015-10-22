@@ -26,7 +26,7 @@ public class DataSource {
     }
 
     public void open() throws SQLException {
-        mDatabase = mDBHelper.getReadableDatabase();
+        mDatabase = mDBHelper.getWritableDatabase();
     }
 
     public void close(){

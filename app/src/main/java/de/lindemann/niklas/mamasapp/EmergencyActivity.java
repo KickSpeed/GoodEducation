@@ -28,6 +28,7 @@ public class EmergencyActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.fab_color)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         mTextView = (TextView) findViewById(R.id.textViewTimer);
