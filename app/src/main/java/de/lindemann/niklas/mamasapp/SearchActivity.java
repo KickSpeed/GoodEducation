@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private DataSource mDataSource;
 
-    private List<SearchItem> mSearchItems;
+    private List<EntryMenuItem> mSearchItems;
 
     private DialogInterface.OnClickListener mDialogListener;
 
@@ -118,19 +120,58 @@ public class SearchActivity extends AppCompatActivity {
 
             mSearchItems = mDataSource.getItemsBySearchValue(query);
 
-            ArrayAdapter adapter = new ArrayAdapter(this,R.layout.list_item_main, R.id.ListViewText,mSearchItems);
+            BaseAdapter adapter = new BaseAdapter() {
+                @Override
+                public int getCount() {
+                    return mSearchItems.size();
+                }
+
+                @Override
+                public Object getItem(int position) {
+                    return mSearchItems.get(position);
+                }
+
+                @Override
+                public long getItemId(int position) {
+                    return 0;
+                }
+
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+
+                    View listenZeile = convertView;
+
+                    if (listenZeile == null){
+                        listenZeile = getLayoutInflater().inflate(R.layout.list_item_entry,parent,false);
+                    }
+
+                    EntryMenuItem entryMenuItem = mSearchItems.get(position);
+
+                    TextView textViewUeberschrift = (TextView) listenZeile.findViewById(R.id.textViewUeberschrift);
+                    TextView textViewEntry = (TextView) listenZeile.findViewById(R.id.TextViewTextEntry);
+                    ImageView imageViewEntry = (ImageView) listenZeile.findViewById(R.id.imageViewFigure);
+
+                    textViewUeberschrift.setText(entryMenuItem.getUeberschrift());
+                    textViewUeberschrift.setTextColor(MyResourceManager.getColorByID(SearchActivity.this,entryMenuItem.getHauptID()));
+                    imageViewEntry.setImageResource(R.drawable.stickfigure1);
+
+                    textViewEntry.setText(entryMenuItem.getValue());
+
+                    return listenZeile;
+                }
+            };
 
             final ListView listView = (ListView) findViewById(R.id.listViewResults);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    SearchItem searchItem = (SearchItem) listView.getItemAtPosition(position);
+                    EntryMenuItem searchItem = (EntryMenuItem) listView.getItemAtPosition(position);
 
                     Intent intent = new Intent(SearchActivity.this,TextActivity.class);
                     intent.putExtra("ID",searchItem.getId());
                     intent.putExtra("Color",MyResourceManager.getColorByID(SearchActivity.this, mDataSource.getHauptIDByUnterpunktID(searchItem.getHauptID())));
-                    intent.putExtra("Value", searchItem.getlabel());
+                    intent.putExtra("Value", searchItem.getValue());
                     startActivity(intent);
                 }
             });

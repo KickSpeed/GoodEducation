@@ -34,11 +34,11 @@ public class EmergencyActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.textViewTimer);
 
         if(prefs.getBoolean("checkbox_gong",true)) {
-            mTimer = new CountDownTimer(10000, 1000) {
+            mTimer = new CountDownTimer(20000, 1000) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    mTextView.setText("seconds remaining: " + millisUntilFinished / 1000);
+                    mTextView.setText("Bitte noch " + millisUntilFinished / 1000 + " Sekunden ruhig bleiben!");
                 }
 
                 @Override

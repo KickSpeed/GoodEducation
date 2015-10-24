@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                     case R.id.nav_settings:
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, settingsFragment).addToBackStack(null).commit();
                         break;
+                    case R.id.nav_manual:
+                        getFragmentManager().beginTransaction().replace(R.id.content_frame,new Fragment()).commit();
+                        break;
 
                 }
                 menuItem.setChecked(true);

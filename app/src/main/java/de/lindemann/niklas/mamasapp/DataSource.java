@@ -17,7 +17,7 @@ public class DataSource {
     private DBHelper mDBHelper;
 
     private String[] mColumnsMain = {"_id","Label"};
-    private String[] mColumnsUnterpunkt = {"_id","Label","Text","Ueberschrift","BtnLabel"};
+    private String[] mColumnsUnterpunkt = {"_id","Label","Text","Ueberschrift","BtnLabel","HauptpunktID"};
 
 
     public DataSource(Context context){
@@ -80,14 +80,17 @@ public class DataSource {
         else return  "";
     }
 
-    public List<SearchItem> getItemsBySearchValue(String searchValue){
+    public List<EntryMenuItem> getItemsBySearchValue(String searchValue){
         String text;
-        List<SearchItem> resultList = new ArrayList<SearchItem>();
+        List<EntryMenuItem> resultList = new ArrayList<>();
 
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM Unterpunkt WHERE Label LIKE '%" + searchValue + "%' OR Text LIKE '%" + searchValue + "%'",null);
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM Unterpunkt WHERE " +
+                "Label LIKE '%" + searchValue + "%' " +
+                "OR Text LIKE '%" + searchValue + "%' " +
+                "OR Ueberschrift LIKE '%" + searchValue + "%'",null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            SearchItem searchItem = populateSearchItem(cursor);
+            EntryMenuItem searchItem = populateEntryItem(cursor);
             resultList.add(searchItem);
             cursor.moveToNext();
         }
@@ -124,22 +127,18 @@ public class DataSource {
         int LabelIndex = cursor.getColumnIndex("Label");
         int UeberschriftIndex = cursor.getColumnIndex("Ueberschrift");
         int BtnLabelIndex = cursor.getColumnIndex("BtnLabel");
+        int HauptIDIndex= cursor.getColumnIndex("HauptpunktID");
 
-        EntryMenuItem item = new EntryMenuItem(cursor.getString(LabelIndex),cursor.getInt(idIndex),cursor.getString(UeberschriftIndex),cursor.getString(BtnLabelIndex));
+        EntryMenuItem item = new EntryMenuItem(cursor.getString(LabelIndex),
+                cursor.getInt(idIndex),
+                cursor.getString(UeberschriftIndex),
+                cursor.getString(BtnLabelIndex),
+                cursor.getInt(HauptIDIndex));
 
         return item;
 
     }
 
-    private SearchItem populateSearchItem(Cursor cursor){
-        int idIndex = cursor.getColumnIndex("_id");
-        int labelIndex = cursor.getColumnIndex("Label");
-        int textIndex = cursor.getColumnIndex("Text");
-        int hauptpunktIndex = cursor.getColumnIndex("HauptpunktID");
-
-        SearchItem item = new SearchItem(cursor.getInt(idIndex),cursor.getString(labelIndex),cursor.getString(textIndex),cursor.getInt(hauptpunktIndex));
-        return item;
-    }
 
 
 
