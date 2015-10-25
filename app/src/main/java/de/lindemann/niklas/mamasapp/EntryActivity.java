@@ -77,8 +77,6 @@ public class EntryActivity extends AppCompatActivity{
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
-        
-
 
         mID = getIntent().getIntExtra("ID",0);
         mValue = getIntent().getStringExtra("Value");

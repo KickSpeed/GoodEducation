@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Path to the device folder with databases
     public static String DB_PATH;
-    private static int DB_VERSION = 29;
+    private static int DB_VERSION = 30;
 
 
     //Database file name

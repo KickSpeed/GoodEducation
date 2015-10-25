@@ -34,7 +34,7 @@ public class DataSource {
     }
 
     public List<MainMenuItem> getAllItems(){
-        List<MainMenuItem> itemList = new ArrayList<MainMenuItem>();
+        List<MainMenuItem> itemList = new ArrayList<>();
         Cursor cursor = mDatabase.query("Hauptpunkt",
                 mColumnsMain,null,null,null,null,null);
 
@@ -69,15 +69,16 @@ public class DataSource {
         return itemList;
     }
 
-    public String getTextByUnterpunktID(int unterpunktID){
-        String Text;
+    public String[] getTextByUnterpunktID(int unterpunktID){
+        String[] Text = new String[2];
         Cursor cursor = mDatabase.query("Unterpunkt",mColumnsUnterpunkt,"_id = " + Integer.toString(unterpunktID),null,null,null,null);
         cursor.moveToFirst();
         if (!cursor.isAfterLast()){
-            Text = cursor.getString(cursor.getColumnIndex("Text"));
+            Text[0] = cursor.getString(cursor.getColumnIndex("Text"));
+            Text[1] = cursor.getString(cursor.getColumnIndex("BtnLabel"));
             return Text;
         }
-        else return  "";
+        return null;
     }
 
     public List<EntryMenuItem> getItemsBySearchValue(String searchValue){

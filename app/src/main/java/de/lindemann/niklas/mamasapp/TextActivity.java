@@ -9,8 +9,11 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -26,7 +29,7 @@ public class TextActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        String Text;
+        String[] text = new String[2];
         super.onCreate(savedInstanceState);
 
         DBHelper dbOpenHelper = new DBHelper(this, "Ina.sqlite3");
@@ -40,7 +43,14 @@ public class TextActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getIntent().getIntExtra("Color", 0)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewText);
+        Button btText = (Button) findViewById(R.id.btTextAction);
+
+        btText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TextActivity.this,"Blaaaa wir fahren nach Sillian!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mDataSource = new DataSource(this);
 
@@ -50,8 +60,14 @@ public class TextActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        text = mDataSource.getTextByUnterpunktID(mUnterpunktID);
+
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(Html.fromHtml(mDataSource.getTextByUnterpunktID(mUnterpunktID)));
+        textView.setText(Html.fromHtml(text[0]));
+
+
+
+        btText.setText(text[1]);
 
     }
 
@@ -77,7 +93,6 @@ public class TextActivity extends AppCompatActivity {
             onBackPressed();
         }
 
-        Log.d("TEXTACTIVITY",Integer.toString(id));
 
         return super.onOptionsItemSelected(item);
     }
