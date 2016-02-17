@@ -1,6 +1,7 @@
 package de.lindemann.niklas.mamasapp;
 
 
+import android.animation.LayoutTransition;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,14 +14,13 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 
 public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private String[] mMenuItems = new String[]{"Hauptmenü","Einstellungen"};
     ActionBarDrawerToggle mDrawerToggle;
 
     @Override
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                 (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        //searchView.setLayoutTransition(new LayoutTransition());
 
         return true;
     }

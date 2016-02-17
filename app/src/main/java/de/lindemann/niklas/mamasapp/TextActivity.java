@@ -32,7 +32,6 @@ public class TextActivity extends AppCompatActivity {
         String[] text = new String[2];
         super.onCreate(savedInstanceState);
 
-        DBHelper dbOpenHelper = new DBHelper(this, "Ina.sqlite3");
 
         setContentView(R.layout.activity_text);
 
@@ -52,7 +51,7 @@ public class TextActivity extends AppCompatActivity {
             }
         });
 
-        mDataSource = new DataSource(this);
+        mDataSource = DataSource.getSingleton(this);
 
         try {
             mDataSource.open();

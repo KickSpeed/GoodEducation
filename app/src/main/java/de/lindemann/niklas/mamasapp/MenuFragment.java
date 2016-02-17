@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,32 +27,12 @@ import java.util.List;
  * interface.
  */
 public class MenuFragment extends ListFragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private String[] mValues;
     private DataSource mDataSource;
 
     List<MainMenuItem> mItemList = new ArrayList<MainMenuItem>();
 
     private OnFragmentInteractionListener mListener;
 
-    // TODO: Rename and change types of parameters
-    public static MenuFragment newInstance(String param1, String param2) {
-        MenuFragment fragment = new MenuFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,8 +51,8 @@ public class MenuFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MENUFRAGMENT", "ONCREATED");
-        mDataSource = new DataSource(getActivity());
+
+        mDataSource =  DataSource.getSingleton(getActivity());
 
         try {
             mDataSource.open();
@@ -118,7 +95,7 @@ public class MenuFragment extends ListFragment {
                 textView.setText(mainMenuItem.getValue());
 
 
-                picture = MyResourceManager.getPictureByPosition(getActivity(), position);
+                picture = MyResourceManager.getPictureByPosition(getActivity(), mainMenuItem.getId());
                 if (picture != null) {
                     imageView.setImageBitmap(picture);
                 }
@@ -183,7 +160,7 @@ public class MenuFragment extends ListFragment {
                 intent.putExtra("Value", mainMenuItem.getValue());
             }
             else{
-                List<EntryMenuItem> SubItemList = new ArrayList<EntryMenuItem>();
+                List<EntryMenuItem> SubItemList = new ArrayList<>();
                 SubItemList = mDataSource.getSubItemsByID(Integer.toString(mainMenuItem.getId()));
                 intent = new Intent(getActivity(), TextActivity.class);
                 //intent.putExtra("Color",getColorByID(mainMenuItem.getId()));
@@ -206,7 +183,6 @@ public class MenuFragment extends ListFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
 
     }

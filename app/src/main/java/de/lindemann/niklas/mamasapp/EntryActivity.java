@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,58 +31,19 @@ public class EntryActivity extends AppCompatActivity{
     private int mID;
     private String mValue;
     private BaseAdapter mEntryAdapter;
-    private ListView mListViewEntry;
-    List<EntryMenuItem> mItemList = new ArrayList<EntryMenuItem>();
+    private RecyclerView mListViewEntry;
+    private CardView mCardView;
+    List<EntryMenuItem> mItemList = new ArrayList<>();
 
 
-    private void createAdapter(){
-        mEntryAdapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return mItemList.size();
-            }
 
-            @Override
-            public Object getItem(int position) {
-                return mItemList.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View listenZeile = convertView;
-
-                if (listenZeile == null){
-                    listenZeile = getLayoutInflater().inflate(R.layout.list_item_entry,parent,false);
-                }
-
-                EntryMenuItem entryMenuItem = mItemList.get(position);
-
-                TextView textViewUeberschrift = (TextView) listenZeile.findViewById(R.id.textViewUeberschrift);
-                TextView textViewEntry = (TextView) listenZeile.findViewById(R.id.TextViewTextEntry);
-                ImageView imageViewEntry = (ImageView) listenZeile.findViewById(R.id.imageViewFigure);
-
-                textViewUeberschrift.setText(entryMenuItem.getUeberschrift());
-                textViewUeberschrift.setTextColor(getIntent().getIntExtra("Color",0));
-                imageViewEntry.setImageResource(R.drawable.stickfigure1);
-
-                textViewEntry.setText(entryMenuItem.getValue());
-
-                return listenZeile;
-            }
-        };
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
 
-        mID = getIntent().getIntExtra("ID",0);
+        mID = getIntent().getIntExtra("ID", 0);
         mValue = getIntent().getStringExtra("Value");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -87,7 +52,8 @@ public class EntryActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mValue);
 
-        mDataSource = new DataSource(this);
+        mDataSource = DataSource.getSingleton(this);
+
 
         try {
             mDataSource.open();
@@ -96,44 +62,41 @@ public class EntryActivity extends AppCompatActivity{
         }
         mItemList = mDataSource.getSubItemsByID(Integer.toString(mID));
 
-        if(mItemList.size()==1){
+        if (mItemList.size() == 1) {
             EntryMenuItem entryMenuItem = mItemList.get(0);
-            Intent intent = new Intent(EntryActivity.this,TextActivity.class);
-            intent.putExtra("Color",EntryActivity.this.getIntent().getIntExtra("Color",0));
-            intent.putExtra("ID",entryMenuItem.getId());
-            intent.putExtra("Value",entryMenuItem.getValue());
+            Intent intent = new Intent(EntryActivity.this, TextActivity.class);
+            intent.putExtra("Color", EntryActivity.this.getIntent().getIntExtra("Color", 0));
+            intent.putExtra("ID", entryMenuItem.getId());
+            intent.putExtra("Value", entryMenuItem.getValue());
             startActivity(intent);
         }
 
-        mListViewEntry = (ListView) findViewById(R.id.listViewEntry);
-
-        createAdapter();
-
-        mListViewEntry.setAdapter(mEntryAdapter);
-
-        mListViewEntry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EntryMenuItem entryMenuItem = (EntryMenuItem) mListViewEntry.getItemAtPosition(position);
-                Intent intent = new Intent(EntryActivity.this,TextActivity.class);
-                intent.putExtra("Color", getIntent().getIntExtra("Color", 0));
-                intent.putExtra("ID",entryMenuItem.getId());
-                intent.putExtra("Value", entryMenuItem.getUeberschrift());
-
-                startActivity(intent);
-            }
-        });
+        mListViewEntry = (RecyclerView) findViewById(R.id.rvEntry);
+        mListViewEntry.setHasFixedSize(true);
 
 
 
+        mListViewEntry.setAdapter(new EntryAdapter(mItemList,this));
 
+        mListViewEntry.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+
+    public void mOpenTextActivity(EntryMenuItem entryMenuItem){
+        Intent intent = new Intent(EntryActivity.this,TextActivity.class);
+        intent.putExtra("Color", getIntent().getIntExtra("Color", 0));
+        intent.putExtra("ID",entryMenuItem.getId());
+        intent.putExtra("Value", entryMenuItem.getUeberschrift());
+
+        startActivity(intent);
     }
 
     @Override
     protected void onPostResume() {
 
-        createAdapter();
-        mListViewEntry.setAdapter(mEntryAdapter);
+        mListViewEntry.setAdapter(new EntryAdapter(mItemList,this));
+
         super.onPostResume();
     }
 

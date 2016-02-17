@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -107,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
             suggestions.saveRecentQuery(query,null);
 
 
-            mDataSource = new DataSource(this);
+            mDataSource = DataSource.getSingleton(this);
             try {
                 mDataSource.open();
             } catch (SQLException e) {
@@ -116,64 +118,23 @@ public class SearchActivity extends AppCompatActivity {
 
             mSearchItems = mDataSource.getItemsBySearchValue(query);
 
-            BaseAdapter adapter = new BaseAdapter() {
-                @Override
-                public int getCount() {
-                    return mSearchItems.size();
-                }
 
-                @Override
-                public Object getItem(int position) {
-                    return mSearchItems.get(position);
-                }
 
-                @Override
-                public long getItemId(int position) {
-                    return 0;
-                }
-
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-
-                    View listenZeile = convertView;
-
-                    if (listenZeile == null){
-                        listenZeile = getLayoutInflater().inflate(R.layout.list_item_entry,parent,false);
-                    }
-
-                    EntryMenuItem entryMenuItem = mSearchItems.get(position);
-
-                    TextView textViewUeberschrift = (TextView) listenZeile.findViewById(R.id.textViewUeberschrift);
-                    TextView textViewEntry = (TextView) listenZeile.findViewById(R.id.TextViewTextEntry);
-                    ImageView imageViewEntry = (ImageView) listenZeile.findViewById(R.id.imageViewFigure);
-
-                    textViewUeberschrift.setText(entryMenuItem.getUeberschrift());
-                    textViewUeberschrift.setTextColor(MyResourceManager.getColorByID(SearchActivity.this,entryMenuItem.getHauptID()));
-                    imageViewEntry.setImageResource(R.drawable.stickfigure1);
-
-                    textViewEntry.setText(entryMenuItem.getValue());
-
-                    return listenZeile;
-                }
-            };
-
-            final ListView listView = (ListView) findViewById(R.id.listViewResults);
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    EntryMenuItem searchItem = (EntryMenuItem) listView.getItemAtPosition(position);
-
-                    Intent intent = new Intent(SearchActivity.this,TextActivity.class);
-                    intent.putExtra("ID",searchItem.getId());
-                    intent.putExtra("Color",MyResourceManager.getColorByID(SearchActivity.this, mDataSource.getHauptIDByUnterpunktID(searchItem.getHauptID())));
-                    intent.putExtra("Value", searchItem.getValue());
-                    startActivity(intent);
-                }
-            });
-
+            RecyclerView rvResults = (RecyclerView) findViewById(R.id.rvResuls);
+            rvResults.setAdapter(new EntryAdapter(mSearchItems,this));
+            rvResults.setHasFixedSize(true);
+            rvResults.setLayoutManager(new LinearLayoutManager(this));
 
         }
+    }
+
+    public void mOpenTextActivity(EntryMenuItem entryMenuItem){
+        Intent intent = new Intent(SearchActivity.this,TextActivity.class);
+        intent.putExtra("Color", getIntent().getIntExtra("Color", 0));
+        intent.putExtra("ID",entryMenuItem.getId());
+        intent.putExtra("Value", entryMenuItem.getUeberschrift());
+
+        startActivity(intent);
     }
 
 }

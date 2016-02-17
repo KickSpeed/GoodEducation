@@ -15,13 +15,25 @@ public class DataSource {
 
     private SQLiteDatabase mDatabase;
     private DBHelper mDBHelper;
+    private static DataSource source;
+
 
     private String[] mColumnsMain = {"_id","Label"};
     private String[] mColumnsUnterpunkt = {"_id","Label","Text","Ueberschrift","BtnLabel","HauptpunktID"};
 
 
-    public DataSource(Context context){
+    private DataSource(Context context){
         mDBHelper = new DBHelper(context,"Ina.sqlite3");
+
+    }
+
+    public static DataSource getSingleton(Context context){
+
+        if(DataSource.source==null){
+            DataSource.source = new DataSource(context);
+        }
+
+        return DataSource.source;
 
     }
 

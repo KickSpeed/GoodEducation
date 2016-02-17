@@ -14,22 +14,22 @@ public class MyResourceManager {
 
         Bitmap picture = null;
         switch (ID){
-            case 0:
+            case 1:
                 picture = BitmapFactory.decodeResource(context.getResources(), R.drawable.puzzle1);
                 break;
-            case 1:
+            case 2:
                 picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle2);
                 break;
-            case 2:
+            case 3:
                 picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle3);
                 break;
-            case 3:
+            case 4:
                 picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle4);
                 break;
-            case 4:
+            case 5:
                 picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle1);
                 break;
-            case 5:
+            case 6:
                 picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle2);
                 break;
         }

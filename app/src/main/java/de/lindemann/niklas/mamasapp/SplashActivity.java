@@ -1,7 +1,6 @@
 package de.lindemann.niklas.mamasapp;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try{
-                    DataSource ds = new DataSource(SplashActivity.this);
+                    DataSource ds = DataSource.getSingleton(SplashActivity.this);
                     ds.open();
                     ds.close();
                 } catch (Exception e){
@@ -27,9 +26,6 @@ public class SplashActivity extends AppCompatActivity {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-                finally {
-                    finish();
                 }
                 return null;
             }
