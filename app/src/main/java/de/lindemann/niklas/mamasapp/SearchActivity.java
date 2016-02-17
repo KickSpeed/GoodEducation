@@ -112,7 +112,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             else {
                 RecyclerView rvResults = (RecyclerView) findViewById(R.id.rvResuls);
-                rvResults.setAdapter(new EntryAdapter(mSearchItems, this));
+                rvResults.setAdapter(new RVAdaper(mSearchItems, this));
                 rvResults.setHasFixedSize(true);
                 rvResults.setLayoutManager(new LinearLayoutManager(this));
             }
