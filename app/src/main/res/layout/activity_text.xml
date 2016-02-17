@@ -1,9 +1,9 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.lindemann.niklas.mamasapp.TextActivity"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context="de.lindemann.niklas.erziehungstipps.TextActivity"
     android:orientation="vertical">
 
 <include
@@ -15,10 +15,11 @@
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/scrollViewText"
     android:overScrollMode="never"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_weight="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,4 +50,16 @@
     </RelativeLayout>
 
 </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_textactivity"
+        android:layout_margin="8dp">
+    </com.google.android.gms.ads.AdView>
 </LinearLayout>

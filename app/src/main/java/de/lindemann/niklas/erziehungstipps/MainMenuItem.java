@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 /**
  * Created by Niklas on 17.09.2015.

@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

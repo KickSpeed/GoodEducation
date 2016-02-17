@@ -1,21 +1,19 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.sql.SQLException;
 
@@ -44,6 +42,7 @@ public class TextActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button btText = (Button) findViewById(R.id.btTextAction);
 
+
         btText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +66,10 @@ public class TextActivity extends AppCompatActivity {
 
 
         btText.setText(text[1]);
+
+        AdView adView = (AdView) findViewById(R.id.adViewText);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
     }
 
@@ -95,7 +98,5 @@ public class TextActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }

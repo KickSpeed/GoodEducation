@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import android.app.Activity;
 import android.support.v7.widget.CardView;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mamas App</string>
+    <string name="app_name">Erziehungstipps</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -16,6 +16,9 @@
     <string name="drawer_open">Öffnen</string>
     <string name="drawer_close">Schliessen</string>
     <string name="nothingfound">Kein Eintrag gefunden</string>
+    <string name="banner_ad_unit_id_startactivity">ca-app-pub-4838648717474387/4633050757</string>
+    <string name="banner_ad_unit_id_entryactivity">ca-app-pub-4838648717474387/2737515154</string>
+    <string name="banner_ad_unit_id_textactivity">ca-app-pub-4838648717474387/5690981554</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

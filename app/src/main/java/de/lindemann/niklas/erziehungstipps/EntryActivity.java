@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -18,13 +18,10 @@ import java.util.List;
 
 public class EntryActivity extends AppCompatActivity{
 
-    private String[] mValues;
     private DataSource mDataSource;
     private int mID;
     private String mValue;
-    private BaseAdapter mEntryAdapter;
     private RecyclerView mListViewEntry;
-    private CardView mCardView;
     List<EntryMenuItem> mItemList = new ArrayList<>();
 
 
@@ -68,7 +65,7 @@ public class EntryActivity extends AppCompatActivity{
 
 
 
-        mListViewEntry.setAdapter(new RVAdaper(mItemList,this));
+        mListViewEntry.setAdapter(new RVAdaper(mItemList, this));
 
         mListViewEntry.setLayoutManager(new LinearLayoutManager(this));
 

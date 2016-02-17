@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import android.content.Context;
 import android.graphics.Bitmap;

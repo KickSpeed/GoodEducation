@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -81,7 +80,7 @@ public class EmergencyActivity extends AppCompatActivity {
                 public void onFinish() {
 
                     mTextView.setText("Gong!");
-                    Uri path = Uri.parse("android.resource://de.lindemann.niklas.mamasapp/" + R.raw.gong);
+                    Uri path = Uri.parse("android.resource://de.lindemann.niklas.erziehungstipps/" + R.raw.gong);
                     mMediaPlayer = new MediaPlayer();
                     mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                     try {

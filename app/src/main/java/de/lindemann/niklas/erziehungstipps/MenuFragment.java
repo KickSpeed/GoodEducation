@@ -1,4 +1,4 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -53,6 +53,8 @@ public class MenuFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         mDataSource =  DataSource.getSingleton(getActivity());
+
+
 
         try {
             mDataSource.open();
@@ -187,4 +189,10 @@ public class MenuFragment extends ListFragment {
 
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+    }
 }

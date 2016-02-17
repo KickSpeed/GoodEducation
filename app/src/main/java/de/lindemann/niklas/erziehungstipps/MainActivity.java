@@ -1,7 +1,6 @@
-package de.lindemann.niklas.mamasapp;
+package de.lindemann.niklas.erziehungstipps;
 
 
-import android.animation.LayoutTransition;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
@@ -14,8 +13,9 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener{
@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
 
         };
+
+        AdView adView = (AdView) findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
 
 
         NavigationView nv = (NavigationView) findViewById(R.id.nvView);
