@@ -68,7 +68,7 @@ public class EntryActivity extends AppCompatActivity{
 
 
 
-        mListViewEntry.setAdapter(new EntryAdapterTemp(mItemList,this));
+        mListViewEntry.setAdapter(new EntryAdapter(mItemList,this));
 
         mListViewEntry.setLayoutManager(new LinearLayoutManager(this));
 
@@ -87,7 +87,7 @@ public class EntryActivity extends AppCompatActivity{
     @Override
     protected void onPostResume() {
 
-        mListViewEntry.setAdapter(new EntryAdapterTemp(mItemList,this));
+        mListViewEntry.setAdapter(new EntryAdapter(mItemList,this));
 
         super.onPostResume();
     }
