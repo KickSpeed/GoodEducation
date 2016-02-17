@@ -13,6 +13,7 @@
         card_view:contentPaddingTop="5dp"
         card_view:cardCornerRadius="4dp"
         android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/cardview"
         >
 
@@ -23,8 +24,8 @@
             >
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/cvImage"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"

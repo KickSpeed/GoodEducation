@@ -15,22 +15,22 @@ public class MyResourceManager {
         Bitmap picture = null;
         switch (ID){
             case 1:
-                picture = BitmapFactory.decodeResource(context.getResources(), R.drawable.puzzle1);
+                picture = BitmapFactory.decodeResource(context.getResources(), R.drawable.introduction);
                 break;
             case 2:
-                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle2);
+                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.reason);
                 break;
             case 3:
-                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle3);
+                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.prevent);
                 break;
             case 4:
-                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle4);
+                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.act);
                 break;
             case 5:
-                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle1);
+                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.calm);
                 break;
             case 6:
-                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.puzzle2);
+                picture = BitmapFactory.decodeResource(context.getResources(),R.drawable.exercise);
                 break;
         }
 
@@ -54,10 +54,10 @@ public class MyResourceManager {
                 color = ContextCompat.getColor(context, R.color.puzzle_4);
                 break;
             case 5:
-                color = ContextCompat.getColor(context, R.color.puzzle_1);
+                color = ContextCompat.getColor(context, R.color.puzzle_5);
                 break;
             case 6:
-                color = ContextCompat.getColor(context, R.color.puzzle_2);
+                color = ContextCompat.getColor(context, R.color.puzzle_6);
                 break;
         }
 

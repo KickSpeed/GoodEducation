@@ -10,21 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -118,19 +107,21 @@ public class SearchActivity extends AppCompatActivity {
 
             mSearchItems = mDataSource.getItemsBySearchValue(query);
 
-
-
-            RecyclerView rvResults = (RecyclerView) findViewById(R.id.rvResuls);
-            rvResults.setAdapter(new EntryAdapter(mSearchItems,this));
-            rvResults.setHasFixedSize(true);
-            rvResults.setLayoutManager(new LinearLayoutManager(this));
-
+            if(mSearchItems.size()==0){
+                getFragmentManager().beginTransaction().replace(R.id.notFoundPlaceholder,new NothingFoundFragment()).commit();
+            }
+            else {
+                RecyclerView rvResults = (RecyclerView) findViewById(R.id.rvResuls);
+                rvResults.setAdapter(new EntryAdapterTemp(mSearchItems, this));
+                rvResults.setHasFixedSize(true);
+                rvResults.setLayoutManager(new LinearLayoutManager(this));
+            }
         }
     }
 
     public void mOpenTextActivity(EntryMenuItem entryMenuItem){
         Intent intent = new Intent(SearchActivity.this,TextActivity.class);
-        intent.putExtra("Color", getIntent().getIntExtra("Color", 0));
+        intent.putExtra("Color", MyResourceManager.getColorByID(this,entryMenuItem.getHauptID()));
         intent.putExtra("ID",entryMenuItem.getId());
         intent.putExtra("Value", entryMenuItem.getUeberschrift());
 

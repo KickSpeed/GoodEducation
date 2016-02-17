@@ -10,8 +10,10 @@
   <color name="divider">#B6B6B6</color>
   <color name="puzzle_1">#70cf1c</color>
   <color name="puzzle_2">#2828ff</color>
-  <color name="puzzle_3">#ff0e69</color>
+  <color name="puzzle_3">#BA0DFF</color>
   <color name="puzzle_4">#ff9c0e</color>
+  <color name="puzzle_5">#00dbe3</color>
+  <color name="puzzle_6">#9A8FFF</color>
   <color name="fab_color">#ff0000</color>
   <color name="card_bg">#f4f4f4</color>
   <color name="card_fg">#f6f7f8</color>

@@ -15,5 +15,9 @@
     <string name="GongSummary">Soll nach dem Drücken auf den Notfallknopf nach 20 Sekunden zur Beruhigung ein Gong ertönen?</string>
     <string name="drawer_open">Öffnen</string>
     <string name="drawer_close">Schliessen</string>
+    <string name="nothingfound">Kein Eintrag gefunden</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
